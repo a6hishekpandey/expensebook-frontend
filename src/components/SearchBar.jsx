@@ -31,7 +31,7 @@ function SearchBar({ placeholder = "Search" }) {
                 onChange={handleChange}
             />
             <img
-                className="h-6 mx-3 hover:cursor-pointer"
+                className="hover:cursor-pointer m-4 h-[1.125rem]"
                 src={searchIcon}
                 alt="search"
             />
