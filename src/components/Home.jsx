@@ -77,7 +77,7 @@ function Home() {
                 }
             }
         });
-    }, [search, reload, filterBy]);
+    }, [search, filterBy, reload]);
 
     useEffect(() => {
         handlePrevButtonClick();
@@ -106,7 +106,7 @@ function Home() {
             .finally(() => {
                 setLoading(false);
             });
-    }, [search, filterBy, sortBy, page, pageSize, count, reload]);
+    }, [search, filterBy, sortBy, page, pageSize, reload]);
 
     const loadPagesFromStart = (arr) => {
         for (let i = 1; i <= Math.min(Math.ceil(count / pageSize), 5); i++) {
