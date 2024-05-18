@@ -52,7 +52,7 @@ function ToolsPanel() {
             {screenWidth >= breakpoint ? (
                 <>
                     <div className="search-bar-and-add-btn-container flex justify-between">
-                        <SearchBar />
+                        <SearchBar placeholder="Search names, emails, and expense ids" />
                         <div className="flex" style={{ flexGrow: 1 }}>
                             <DropdownMenu
                                 title="FILTER BY"
@@ -80,7 +80,7 @@ function ToolsPanel() {
             ) : (
                 <>
                     <div className="search-bar-and-add-btn-container flex justify-between">
-                        <SearchBar />
+                        <SearchBar placeholder="Search names, emails, and expense ids" />
                         <NewExpenseButton />
                     </div>
                     <div className="sort-and-filter-container flex items-center">

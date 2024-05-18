@@ -2,7 +2,7 @@ import searchIcon from "../assets/search.png";
 import { useDispatch } from "react-redux";
 import { search as sliceSearch } from "../store/toolsSlice.js";
 
-function SearchBar() {
+function SearchBar({ placeholder = "Search" }) {
     const dispatch = useDispatch();
 
     const debounce = (cb, delay) => {
@@ -26,7 +26,7 @@ function SearchBar() {
             <input
                 type="text"
                 className="h-full w-full outline-none p-4 text-white bg-transparent text-sm flex-grow"
-                placeholder="Search"
+                placeholder={placeholder}
                 style={{ borderRight: "1px solid #4c4e6a" }}
                 onChange={handleChange}
             />
