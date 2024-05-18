@@ -112,9 +112,9 @@ function AddEditExpense() {
             <div
                 className={`bg-[#141625] absolute top-0 ${
                     isAddEditPopupOpen ? "left-0" : "left-[-100%]"
-                } w-full  p-4 text-white md:w-[30%] z-[1000] transition-[300ms] min-h-[100svh] ${
+                } w-full  p-4 text-white md:w-[30%] z-[1000] transition-[300ms] h-[100svh] ${
                     screenWidth >= breakpoint && "scrollbar"
-                }`}
+                } overflow-auto`}
                 style={{
                     boxShadow: `rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
         rgba(0, 0, 0, 0.06) 0px 2px 4px -1px`,
