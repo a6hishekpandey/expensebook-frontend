@@ -72,6 +72,7 @@ function DropdownMenu({
                             className="option-container"
                             onClick={() => {
                                 setSelectedOption(option.value);
+                                setIsDropdownOpen((prev) => !prev);
                             }}
                         >
                             <div
