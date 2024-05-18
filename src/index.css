@@ -85,3 +85,8 @@ h3 {
     top: calc((4rem / 2) - (2rem / 2));
     left: calc((4rem / 2) - (2rem / 2));
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+    transition: background-color 0s 600000s, color 0s 600000s !important;
+}
