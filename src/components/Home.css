@@ -9,15 +9,6 @@
     height: calc(100svh - 4rem);
 }
 
-.scrollbar::-webkit-scrollbar {
-    width: 0.5rem;
-}
-
-.scrollbar::-webkit-scrollbar-thumb {
-    background: #1f213a;
-    border-radius: 03125rem;
-}
-
 /* width >= 768px */
 @media screen and (min-width: 768px) {
     .home {
