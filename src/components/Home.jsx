@@ -19,6 +19,7 @@ import conf from "../conf/conf.js";
 import Cookies from "js-cookie";
 
 function Home() {
+    const breakpoint = 768;
     const configService = new ConfigService();
     const authService = new AuthService();
     const dispatch = useDispatch();
@@ -39,6 +40,11 @@ function Home() {
     const [isPageDropdownOpen, setIsPageDropdownOpen] = useState(false);
     const [pageSize, setPageSize] = useState(20);
     const [buttons, setButtons] = useState([]);
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+    window.addEventListener("resize", () => {
+        setScreenWidth(window.innerWidth);
+    });
 
     const logout = () => {
         dispatch(sliceLogout());
@@ -159,7 +165,11 @@ function Home() {
             <div className={`home ${isAddEditPopupOpen && "overlay"}`}>
                 <Nav avatar={avatar} />
                 {/* overflow-auto works with static height only */}
-                <div className="relative main-section scrollbar overflow-auto">
+                <div
+                    className={`relative main-section ${
+                        screenWidth >= breakpoint && "scrollbar"
+                    } overflow-auto`}
+                >
                     <ToolsPanel />
                     {loading ? (
                         <div
