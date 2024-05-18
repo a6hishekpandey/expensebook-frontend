@@ -3,13 +3,12 @@ import AuthService from "../services/auth.js";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { logout as sliceLogout } from "../store/authSlice.js";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 function Profile() {
     const authService = new AuthService();
     const dispath = useDispatch();
     const navigate = useNavigate();
-    const redirectPath = useSelector((state) => state.authReducer.redirectPath);
 
     const logout = async () => {
         const response = await authService.logout();
