@@ -7,6 +7,7 @@ import { setExpense } from "../store/expenseSlice.js";
 import ConfigService from "../services/config.js";
 
 function AddEditExpense() {
+    const breakpoint = 768;
     const configService = new ConfigService();
     const dispatch = useDispatch();
     const isAddEditPopupOpen = useSelector(
@@ -16,6 +17,11 @@ function AddEditExpense() {
     const reload = useSelector((state) => state.toolsReducer.reload);
     const { register, handleSubmit, setValue } = useForm();
     const [error, setError] = useState("");
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+    window.addEventListener("resize", () => {
+        setScreenWidth(window.innerWidth);
+    });
 
     useEffect(() => {
         if (expense !== null) {
@@ -106,7 +112,9 @@ function AddEditExpense() {
             <div
                 className={`bg-[#141625] absolute top-0 ${
                     isAddEditPopupOpen ? "left-0" : "left-[-100%]"
-                } w-full h-[100svh] p-4 text-white md:w-[30%] z-[1000] transition-[300ms]`}
+                } w-full  p-4 text-white md:w-[30%] z-[1000] transition-[300ms] min-h-[100svh] ${
+                    screenWidth >= breakpoint && "scrollbar"
+                }`}
                 style={{
                     boxShadow: `rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
         rgba(0, 0, 0, 0.06) 0px 2px 4px -1px`,
