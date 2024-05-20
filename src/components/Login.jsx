@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthService from "../services/auth.js";
 import { useForm } from "react-hook-form";
@@ -6,6 +6,7 @@ import { Input, Button } from "./index.js";
 import Cookies from "js-cookie";
 import { useSelector, useDispatch } from "react-redux";
 import { login as sliceLogin } from "../store/authSlice.js";
+import conf from "../conf/conf.js";
 
 function Login() {
     const authService = new AuthService();
@@ -14,9 +15,11 @@ function Login() {
     const { register, handleSubmit } = useForm();
     const redirectPath = useSelector((state) => state.authReducer.redirectPath);
     const [error, setError] = useState("");
+    const [isDisabled, setIsDisabled] = useState(false);
 
     const login = async (data) => {
         setError("");
+        setIsDisabled(true);
         try {
             const response = await authService.login(data);
             if (response.success) {
@@ -27,12 +30,13 @@ function Login() {
                         currentUser: data.user,
                     })
                 );
-                Cookies.set("accessToken", data.accessToken, { expires: 5 });
-                Cookies.set("refreshToken", data.refreshToken, { expires: 5 });
+                Cookies.set("accessToken", data.accessToken, { expires: conf.accessTokenExpiry });
+                Cookies.set("refreshToken", data.refreshToken, { expires: conf.refreshTokenExpiry });
                 navigate(redirectPath);
             } else {
                 setError(response.message);
             }
+            setIsDisabled(false);
         } catch (error) {
             setError(error.message);
         }
@@ -77,8 +81,9 @@ function Login() {
                         </p>
                     )}
                     <Button
-                        className="text-sm bg-[#7c5df9] w-full h-[2.5rem] rounded-[0.1875rem]"
+                        className="text-sm bg-[#7c5df9] w-full h-[2.5rem] rounded-[0.1875rem] disabled:opacity-75 disabled:cursor-not-allowed"
                         type="submit"
+                        disabled={isDisabled}
                     >
                         Login
                     </Button>

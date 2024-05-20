@@ -17,6 +17,7 @@ function AddEditExpense() {
     const reload = useSelector((state) => state.toolsReducer.reload);
     const { register, handleSubmit, setValue } = useForm();
     const [error, setError] = useState("");
+    const [isDisabled, setIsDisabled] = useState(false);
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
     window.addEventListener("resize", () => {
@@ -45,6 +46,7 @@ function AddEditExpense() {
 
     const handleFormSubmit = async (data, e) => {
         setError("");
+        setIsDisabled(true);
         try {
             let response;
             if (expense === null) {
@@ -61,6 +63,7 @@ function AddEditExpense() {
                 dispatch(setIsAddEditPopupOpen({ isAddEditPopupOpen: false }));
                 dispatch(setExpense({ expense: null }));
             }
+            setIsDisabled(false);
         } catch (error) {
             setError(error.message);
         }
@@ -83,6 +86,7 @@ function AddEditExpense() {
     const deleteExpense = async (e) => {
         e.preventDefault();
         setError("");
+        setIsDisabled(true);
         try {
             const response = await configService.deleteExpense({
                 id: expense._id,
@@ -102,6 +106,7 @@ function AddEditExpense() {
                     status: false,
                 });
             }
+            setIsDisabled(false);
         } catch (error) {
             setError(error.message);
         }
@@ -200,8 +205,9 @@ function AddEditExpense() {
                 <div className="mb-6 flex justify-end">
                     {expense !== null ? (
                         <Button
-                            className="text-sm h-[2.5rem] rounded-full w-24 mx-2 bg-red-700"
+                            className="text-sm h-[2.5rem] rounded-full w-24 mx-2 bg-red-700 disabled:opacity-75 disabled:cursor-not-allowed"
                             onClick={deleteExpense}
+                            disabled={isDisabled}
                         >
                             Delete
                         </Button>
@@ -222,8 +228,9 @@ function AddEditExpense() {
                         </Button>
                     )}
                     <Button
-                        className="text-sm bg-[#7c5df9] h-[2.5rem] rounded-full w-24"
+                        className="text-sm bg-[#7c5df9] h-[2.5rem] rounded-full w-24 disabled:opacity-75 disabled:cursor-not-allowed"
                         type="submit"
+                        disabled={isDisabled}
                     >
                         Save
                     </Button>

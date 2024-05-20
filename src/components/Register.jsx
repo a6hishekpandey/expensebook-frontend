@@ -9,15 +9,18 @@ function Register() {
     const { register, handleSubmit } = useForm();
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
+    const [isDisabled, setIsDisabled] = useState(false);
 
     const signup = async (data, e) => {
         setError("");
         setSuccess("");
+        setIsDisabled(true);
         try {
             const response = await authService.register(data);
             if (response.success) setSuccess(response.message);
             else setError(response.message);
             e.target.reset();
+            setIsDisabled(false);
         } catch (error) {
             setError(error.message);
         }
@@ -91,8 +94,9 @@ function Register() {
                         </p>
                     )}
                     <Button
-                        className="text-sm bg-[#7c5df9] w-full h-[2.5rem] rounded-[0.1875rem]"
+                        className="text-sm bg-[#7c5df9] w-full h-[2.5rem] rounded-[0.1875rem] disabled:opacity-75 disabled:cursor-not-allowed"
                         type="submit"
+                        disabled={isDisabled}
                     >
                         Register
                     </Button>
